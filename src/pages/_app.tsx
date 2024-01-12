@@ -1,6 +1,12 @@
+import { AppProps } from "next/app"
+import { globalStyle } from "../styles/global"
 
-function MyApp({ Component, pageProps }) {
-  return <Component { ...pageProps } />
-}
+globalStyle()
+export default function App({ Component, pageProps }: AppProps) {
+  return (
+    <div>
+      <Component {...pageProps} />
+    </div>
+  
+})
 
-export default MyApp
