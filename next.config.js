@@ -5,9 +5,12 @@ const nextConfig = {
 
   experimental: {
     images: {
-      allowFutureImage: true
-    }
-  }
-}
+      allowFutureImage: true,
+    },
+  },
+  images: {
+    domains: ["files.stripe.com"],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
