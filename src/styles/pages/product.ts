@@ -60,7 +60,7 @@ export const ProductDetails = styled("div", {
     fontSize: "$md",
 
     "&:hover": {
-      backgroundClor: "$gree300",
+      backgroundColor: "$green500",
     },
   },
 });
