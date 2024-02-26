@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import {
   ProductContainer,
   ImgContainer,
@@ -8,7 +7,9 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { stripe } from "../../lib/stripe";
 import Stripe from "stripe";
 import Image from "next/future/image";
-import path from "path";
+
+import axios from "axios";
+import { useState } from "react";
 
 interface ProductProps {
   product: {
@@ -17,10 +18,26 @@ interface ProductProps {
     imageUrl: string;
     price: string;
     description: string;
+    defaultPriceId: string;
   };
 }
 
 export default function Home({ product }: ProductProps) {
+  const [isCreateCheckoutSession, setIsCreateCheckoutSession] = useState(false);
+  async function handleByProduct() {
+    try {
+      const response = await axios.post("/api/checkout", {
+        priceId: product.defaultPriceId,
+      });
+
+      const { checkoutURL } = response.data;
+      setIsCreateCheckoutSession(true);
+      window.location.href = checkoutURL;
+    } catch (err) {
+      setIsCreateCheckoutSession(false);
+      alert("Falha ao redirecionamento ao checkout");
+    }
+  }
   return (
     <ProductContainer>
       <ImgContainer>
@@ -30,7 +47,9 @@ export default function Home({ product }: ProductProps) {
         <h1>{product.name}</h1>
         <span>{product.price}</span>
         <p>{product.description}</p>
-        <button>Compre Agora</button>
+        <button disabled={isCreateCheckoutSession} onClick={handleByProduct}>
+          Compre Agora
+        </button>
       </ProductDetails>
     </ProductContainer>
   );
@@ -65,6 +84,7 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
           currency: "BRL",
         }).format(price.unit_amount / 100),
         description: product.description,
+        defaultPriceId: price.id,
       },
     },
     revalidate: 60 * 60 * 1,
