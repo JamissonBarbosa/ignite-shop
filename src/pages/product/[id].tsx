@@ -10,6 +10,7 @@ import Image from "next/future/image";
 
 import axios from "axios";
 import { useState } from "react";
+import Head from "next/head";
 
 interface ProductProps {
   product: {
@@ -39,19 +40,24 @@ export default function Home({ product }: ProductProps) {
     }
   }
   return (
-    <ProductContainer>
-      <ImgContainer>
-        <Image src={product.imageUrl} width={520} height={480} alt="" />
-      </ImgContainer>
-      <ProductDetails>
-        <h1>{product.name}</h1>
-        <span>{product.price}</span>
-        <p>{product.description}</p>
-        <button disabled={isCreateCheckoutSession} onClick={handleByProduct}>
-          Compre Agora
-        </button>
-      </ProductDetails>
-    </ProductContainer>
+    <>
+      <Head>
+        <title>{product.name} | Ignite Shop</title>
+      </Head>
+      <ProductContainer>
+        <ImgContainer>
+          <Image src={product.imageUrl} width={520} height={480} alt="" />
+        </ImgContainer>
+        <ProductDetails>
+          <h1>{product.name}</h1>
+          <span>{product.price}</span>
+          <p>{product.description}</p>
+          <button disabled={isCreateCheckoutSession} onClick={handleByProduct}>
+            Compre Agora
+          </button>
+        </ProductDetails>
+      </ProductContainer>
+    </>
   );
 }
 
