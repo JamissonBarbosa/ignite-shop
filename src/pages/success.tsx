@@ -19,7 +19,7 @@ export default function Sucess({ customerName, product }: SuccessProps) {
     <>
       <Head>
         <title>Compra efetuada | Ignite Shop</title>
-        <meta name="robots" content="noindex " />
+        <meta name="robots" content="noindex" />
       </Head>
       <SuccessContainer>
         <h1>Compra efetuada</h1>
@@ -28,9 +28,9 @@ export default function Sucess({ customerName, product }: SuccessProps) {
         </ImageContainer>
         <p>
           Uhuul <strong>{customerName}</strong>, sua{" "}
-          <strong>{product.name}</strong> já está a caminho da sua casa .
+          <strong>{product.name}</strong> já está a caminho da sua casa.
         </p>
-        <Link href="/">Voltar ao catalógo</Link>
+        <Link href="/">Voltar ao Catalógo</Link>
       </SuccessContainer>
     </>
   );
